@@ -1,0 +1,5 @@
+git ignore filters
+*.csv
+*08tstcar.txt
+*ipynb
+*.xlsx
