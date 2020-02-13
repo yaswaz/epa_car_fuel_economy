@@ -73,7 +73,7 @@ total_18 = df_18.model.nunique()
 total_08, total_18
 
 
-# In[55]:
+# In[8]:
 
 
 prop_08 = alt_08/total_08
@@ -81,7 +81,7 @@ prop_18 = alt_18/total_18
 prop_08, prop_18
 
 
-# In[58]:
+# In[9]:
 
 
 plt.bar(['2008', '2018'], [prop_08, prop_18])
@@ -90,7 +90,7 @@ plt.xlabel('Year')
 plt.xlabel('Number of Unique Models')
 
 
-# ### Q2: How much have vehicle classes improved in fuel economy?  
+# ### Q2: How much have vehicle classes improved in fuel economy?
 
 # In[ ]:
 
@@ -98,21 +98,21 @@ plt.xlabel('Number of Unique Models')
 Average fuel economy for each vehicle class
 
 
-# In[9]:
+# In[10]:
 
 
 vehicle_08 = df_08.groupby('veh_class').cmb_mpg.mean()
 vehicle_08
 
 
-# In[10]:
+# In[11]:
 
 
 vehicle_18 = df_18.groupby('veh_class').cmb_mpg.mean()
 vehicle_18
 
 
-# In[11]:
+# In[12]:
 
 
 #Difference between each vehicle class
@@ -120,7 +120,7 @@ diff = vehicle_18 - vehicle_08
 diff
 
 
-# In[15]:
+# In[13]:
 
 
 # Only vehicle class that exist in both will be plotted
@@ -134,14 +134,14 @@ plt.ylabel('Increase in Avg Cmb')
 
 # ### Q3: What are the characteristics of SmartWay vehicles? Have they changed over time?
 
-# In[17]:
+# In[14]:
 
 
 #Analyze df_08 by smart way classification and explore the data
 df_08.smartway.unique()
 
 
-# In[19]:
+# In[15]:
 
 
 # Get all smart way vehicles for df_08
@@ -149,41 +149,41 @@ smart_08 = df_08.query('smartway == "yes"')
 smart_08
 
 
-# In[32]:
+# In[16]:
 
 
 #Explore smart_08
 s_08 = smart_08.describe()
 
 
-# In[27]:
+# In[17]:
 
 
 df_18.query('smartway == "Yes"')
 
 
-# In[21]:
+# In[18]:
 
 
 #Analyze df_08 by smart way classification and explore the data
 df_18.smartway.unique()
 
 
-# In[29]:
+# In[19]:
 
 
 #Get all smartway vehicles for df_18
 smart_18 = df_18.query('smartway in ["Yes", "Elite"]')
 
 
-# In[31]:
+# In[20]:
 
 
-# Explore smartway 
+# Explore smartway
 s_18 = smart_18.describe()
 
 
-# In[36]:
+# In[21]:
 
 
 # Further explore
@@ -193,7 +193,7 @@ df_18.smartway.value_counts()
 
 # ### Q4: What features are associated with better fuel economy?
 
-# In[38]:
+# In[22]:
 
 
 # Explore cmb and other features for df_08
@@ -201,10 +201,47 @@ top_08 = df_08.query('cmb_mpg > cmb_mpg.mean()')
 top_08.describe()
 
 
-# In[39]:
+# In[23]:
 
 
 # Explore cmb in comparison with other features for df_18
 top_18 = df_18.query('cmb_mpg > cmb_mpg.mean()')
 top_18.describe()
 
+
+# ### Create combined dataset
+
+# In[24]:
+
+
+# rename 2008 columns
+df_08 = df_08.rename(columns=lambda x: x[:10] + "_2008")
+
+
+# In[25]:
+
+
+# view to check names
+df_08.head()
+
+
+# In[26]:
+
+
+# merge datasets
+df_combined = df_08.merge(df_18, left_on='model_2008', right_on='model', how='inner')
+
+
+# In[27]:
+
+
+# view to check merge
+df_combined.head()
+
+
+# Save the combined dataset
+
+# In[28]:
+
+
+df_combined.to_csv('combined_dataset.csv', index=False)
