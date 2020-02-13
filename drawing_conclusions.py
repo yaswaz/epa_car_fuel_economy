@@ -13,6 +13,8 @@ import matplotlib.pyplot as plt
 get_ipython().run_line_magic('matplotlib', 'inline')
 df_08 = pd.read_csv('clean_08.csv')
 df_18 = pd.read_csv('clean_18.csv')
+df = pd.read_csv('combined_dataset.csv')
+
 df_08.head(50)
 
 
@@ -245,3 +247,51 @@ df_combined.head()
 
 
 df_combined.to_csv('combined_dataset.csv', index=False)
+
+
+
+ ###  Create a new dataframe, `model_mpg`, that contain the mean combined mpg values in 2008 and 2018 for each unique model
+#
+# To do this, group by `model` and find the mean `cmb_mpg_2008` and mean `cmb_mpg` for each.
+
+# In[30]:
+
+
+model_mpg = df.groupby('model').mean()[['cmb_mpg_2008', 'cmb_mpg']]
+
+
+# In[31]:
+
+
+model_mpg.head()
+
+
+# ###  Create a new column, `mpg_change`, with the change in mpg
+# Subtract the mean mpg in 2008 from that in 2018 to get the change in mpg
+
+# In[32]:
+
+
+model_mpg['mpg_change'] = model_mpg['cmb_mpg'] - model_mpg['cmb_mpg_2008']
+
+
+# In[33]:
+
+
+model_mpg.head()
+
+
+# ###  Find the vehicle that improved the most
+# Find the max mpg change, and then use query or indexing to see what model it is!
+
+# In[34]:
+
+
+max_change = model_mpg['mpg_change'].max()
+max_change
+
+
+# In[35]:
+
+
+model_mpg[model_mpg['mpg_change'] == max_change]
