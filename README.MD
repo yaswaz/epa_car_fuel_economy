@@ -4,6 +4,20 @@
 ### Project Title
 EPA CAR FUEL ECONOMY DATA
 
+### Description
+The Project cleans and perform EDA on the epa data set. Then it asks the
+following questions and finds answers:
+Q1: Are more unique models using alternative fuels in 2018 compared to 2008?
+By how much?
+Q2: How much have vehicle classes improved in fuel economy (increased in mpg)?
+Q3: What are the characteristics of SmartWay vehicles? Have they changed over
+time? (mpg, greenhouse gas)
+Q4: What features are associated with better fuel economy (mpg)?
+Q5: For all of the models that were produced in 2008 that are still being produced
+in 2018, how much has the mpg improved and which vehicle improved the most?
+This is a question regarding models that were updated since 2008 and still being
+produced in 2018. In order to do this, we need a way to compare models that
+exist in both datasets. To do this, we need merges
 
 The ZIP'd versions of these files are named ??DATA.ZIP (e.g., 83DATA.ZIP)
 for 1978-1983 database files, ??MFGUI.ZIP (e.g., 93MFGUI.ZIP) for
